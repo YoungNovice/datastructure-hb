@@ -46,7 +46,7 @@ int main()
 
     int index = 3;
     int val = get(&arr, index);
-    printf("arr[%d] = %d\n", index, val);
+    printf("array[%d] = %d\n", index, val);
 
     delete_arr(&arr, 6);
     show_arr(&arr);
