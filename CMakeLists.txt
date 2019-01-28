@@ -3,4 +3,4 @@ project(quickstart C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(quickstart list/typedef.c)
+add_executable(quickstart array/s3_1.c)

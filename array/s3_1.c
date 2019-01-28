@@ -58,7 +58,8 @@ bool delete_arr(struct Arr *pArr, int pos)
         return false;
 
     // pos 到cnt-1的数据前移动一位
-    for (int i = pos;  i < pArr->cnt;) {
+    int i;
+    for (i = pos;  i < pArr->cnt;) {
         pArr->pBase[i] = pArr->pBase[++i];
     }
     (pArr->cnt)--;
@@ -105,8 +106,10 @@ void sort_arr(struct Arr *pArr)
     if (is_empty(pArr))
         return;
 
-    for (int i = 0; i < pArr->cnt - 1; ++i) {
-        for (int j = 0; j < pArr->cnt - 1 - i; ++j) {
+    int i;
+    int j;
+    for (i = 0; i < pArr->cnt - 1; ++i) {
+        for (j = 0; j < pArr->cnt - 1 - i; ++j) {
             if (pArr->pBase[j] > pArr->pBase[j+1])
             {
                 int temp = pArr->pBase[j];
@@ -169,7 +172,8 @@ void inversion_arr(struct Arr *pArr)
     if (is_empty(pArr))
         return;
 
-    for (int i = 0; i < pArr->cnt / 2; ++i) {
+    int i;
+    for (i = 0; i < pArr->cnt / 2; ++i) {
         int temp = pArr->pBase[i];
         pArr->pBase[i] = pArr->pBase[pArr->cnt - i -1];
         pArr->pBase[pArr->cnt - i - 1] = temp;
