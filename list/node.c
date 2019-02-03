@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <malloc.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 typedef struct Node {
     int data; // 节点的数据域
@@ -33,6 +34,24 @@ int main()
 
     exchange_sort_list(pHead);
     traverse_list(pHead);
+	insert_list(pHead, 2, 10);
+    traverse_list(pHead);
+}
+
+bool insert_list(PNODE pHead, int index, int val) {
+	PNODE pTemp = pHead;
+	int length = length_list(pHead);
+	if (length < index) {
+		printf("out of bounds");
+		exit(-1);
+	}
+	for (int i=0; i<index; i++) {
+		pTemp = pTemp->pNext;
+	}
+	PNODE pNew = (PNODE)malloc(sizeof(NODE));
+	pNew->data = val;
+	pNew->pNext = pTemp->pNext;
+	pTemp->pNext = pNew;
 }
 
 // 第一轮交换最小值在第一个位置
