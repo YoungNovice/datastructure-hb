@@ -32,10 +32,31 @@ int main()
 
 //   bubber_sort_list(pHead);
 
-    exchange_sort_list(pHead);
+  //  exchange_sort_list(pHead);
+  //  traverse_list(pHead);
+//	insert_list(pHead, 2, 10);
     traverse_list(pHead);
-	insert_list(pHead, 2, 10);
+	int val;
+	delete_list(pHead, 5, &val);
+	printf("deleted val is %d\n", val);
     traverse_list(pHead);
+}
+
+// 
+bool delete_list(PNODE pHead, int index, int *val) {
+	PNODE pPrev = pHead;
+	int length = length_list(pHead);
+	if (length < index) {
+		printf("out of bounds");
+		exit(-1);
+	}
+	for (int i=0; i < index; i++) {
+		pPrev = pPrev->pNext;
+	}
+	PNODE pCurrent = pPrev->pNext;
+	pPrev->pNext = pCurrent->pNext;
+	*val = pCurrent->data;
+	free(pCurrent);
 }
 
 bool insert_list(PNODE pHead, int index, int val) {
@@ -49,6 +70,10 @@ bool insert_list(PNODE pHead, int index, int val) {
 		pTemp = pTemp->pNext;
 	}
 	PNODE pNew = (PNODE)malloc(sizeof(NODE));
+	if (NULL == pNew) {
+		printf("malloc error");
+		exit(-1);
+	}
 	pNew->data = val;
 	pNew->pNext = pTemp->pNext;
 	pTemp->pNext = pNew;
