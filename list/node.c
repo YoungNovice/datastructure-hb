@@ -23,60 +23,60 @@ int main()
     // 创建一个链表 并返回头节点
     pHead = create_list();
     traverse_list(pHead);
-    if (is_empty(pHead))
-        printf("empty list\n");
-    else
-        printf("not empty list\n");
-
-    printf("list length is %d\n", length_list(pHead));
 
 //   bubber_sort_list(pHead);
 
   //  exchange_sort_list(pHead);
   //  traverse_list(pHead);
-//	insert_list(pHead, 2, 10);
-    traverse_list(pHead);
-	int val;
-	delete_list(pHead, 5, &val);
-	printf("deleted val is %d\n", val);
+
+
+	//insert_list(pHead, 2, 10);
+    //traverse_list(pHead);
+	
+	int val
+	delete_list(pHead, 3, &val);
     traverse_list(pHead);
 }
 
 // 
 bool delete_list(PNODE pHead, int index, int *val) {
-	PNODE pPrev = pHead;
-	int length = length_list(pHead);
-	if (length < index) {
-		printf("out of bounds");
-		exit(-1);
+	int i;
+	PNODE p = pHead;
+	while (NULL != p->pNext && i < index - 1) {
+		p = p-pNext;
+		++i;
 	}
-	for (int i=0; i < index; i++) {
-		pPrev = pPrev->pNext;
-	}
-	PNODE pCurrent = pPrev->pNext;
-	pPrev->pNext = pCurrent->pNext;
-	*val = pCurrent->data;
-	free(pCurrent);
+	if (NULL == p->pNext || i > index - 1)
+		return false;
+
+	// 保存待删除元素的节点地址
+	PNODE q = p->pNext;
+	p->pNext = p->pNext->pNext;
+	free(q);
+	q = NULL;
 }
 
 bool insert_list(PNODE pHead, int index, int val) {
-	PNODE pTemp = pHead;
-	int length = length_list(pHead);
-	if (length < index) {
-		printf("out of bounds");
-		exit(-1);
+	int i;
+	PNODE p = pHead;
+	// 定位到待插入元素的前面
+	while (NULL != p && i < index - 1) {
+		p = p->pNext;
+		++i;
 	}
-	for (int i=0; i<index; i++) {
-		pTemp = pTemp->pNext;
-	}
+	if (NULL == p || i > index - 1)
+		return false;
+
 	PNODE pNew = (PNODE)malloc(sizeof(NODE));
 	if (NULL == pNew) {
 		printf("malloc error");
 		exit(-1);
 	}
 	pNew->data = val;
-	pNew->pNext = pTemp->pNext;
-	pTemp->pNext = pNew;
+	// 尾巴
+	PNODE q = p->pNext;
+	p->pNext = pNew;
+	pNew->pNext = q;
 }
 
 // 第一轮交换最小值在第一个位置
@@ -144,11 +144,11 @@ PNODE create_list(void) {
         exit(-1);
     }
 
-    printf("len = \n");
+    printf("len = ");
     scanf("%d", &len);
 
     for (i = 0; i < len; ++i) {
-        printf("the %d th node val is :\n", i+1);
+        printf("the %d th node val is :", i+1);
         scanf("%d", &val);
 
         PNODE pNew = (PNODE)malloc(sizeof(NODE));
