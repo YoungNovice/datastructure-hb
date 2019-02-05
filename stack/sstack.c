@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
+// 使用数组构造栈 还没有写完 有空在写
 
 typedef struct Stack {
 	int cap;

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <malloc.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct Node {
 	int data;
@@ -14,8 +15,10 @@ typedef struct Stack {
 
 void initStack(PSTACK);
 void push(PSTACK, int);
-int pop(PSTACK);
+bool pop(PSTACK, int *);
 void traverse(PSTACK);
+bool empty(PSTACK);
+void clear(PSTACK);
 
 // 使用链表 栈
 int main(void) {
@@ -25,21 +28,45 @@ int main(void) {
 	push(&s, 4);
 	push(&s, 2);
 	traverse(&s);
-	int val = pop(&s);
-	printf("pop value:%d\n", val);
+	int val;
+	if(pop(&s, &val)) {
+		printf("pop success value is %d\n", val);
+	} else {
+		printf("pop failed\n");
+	}
+	traverse(&s);
+	clear(&s);
 	traverse(&s);
 	return 0;
 }
 
-int pop(PSTACK s) {
+void clear(PSTACK s) {
+	PNODE p = s->pTop;
+	while (p != s->pBottom) {
+		PNODE q = p->pNext;
+		free(p);
+		p = q;
+	}
+	s->pTop = s->pBottom;
+}
+
+bool empty(PSTACK s) {
 	if (s->pTop == s->pBottom)
-		return;
+		return true;
+	else 
+		return false;
+}
+
+bool pop(PSTACK s, int *pVal) {
+	if (empty(s)) {
+		return false;
+	}
 	PNODE pTemp = s->pTop;
 	s->pTop = s->pTop->pNext;
-	int val = pTemp->data;
+	*pVal = pTemp->data;
 	free(pTemp);
 	pTemp = NULL;
-	return val;
+	return true;
 }
 
 void traverse(PSTACK s) {
@@ -70,5 +97,7 @@ void initStack(PSTACK s) {
 		exit(-1);
 	} else {
 		s->pTop = s->pBottom;
+		s->pTop->pNext = NULL;
+		s->pTop->data = -1;
 	}
 }
