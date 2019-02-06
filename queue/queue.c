@@ -15,6 +15,7 @@ bool empty(PQUEUE);
 bool full(PQUEUE);
 bool en_queue(PQUEUE, int);
 bool out_queue(PQUEUE, int *);
+void traverse_queue(PQUEUE);
 
 int main(void) {
 	QUEUE q;
@@ -23,6 +24,8 @@ int main(void) {
 		en_queue(&q, i);
 	}
 	int val;
+	traverse_queue(&q);
+
 	printf("出队列: ");
 	for (int i=0; i < 4; i++) {
 		out_queue(&q, &val);
@@ -31,6 +34,14 @@ int main(void) {
 	printf("\n");
 	return 0;
 }
+
+void traverse_queue(PQUEUE pQ) {
+	for (int i=pQ->front; i<pQ->rear; i = (i+1)% pQ->len) {
+		printf("%d\t", pQ->pBase[i]);
+	}
+	printf("\n");
+}
+
 bool out_queue(PQUEUE pQ, int *pVal) {
 	if (empty(pQ))
 		return false;
