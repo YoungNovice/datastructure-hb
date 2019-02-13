@@ -10,14 +10,49 @@ typedef struct BTNode {
 struct BTNode * createTree();
 void preTraverse(struct BTNode *);
 void inTraverse(struct BTNode *);
-void postraverse(struct BTNode *);
+void postTraverse(struct BTNode *);
 
 int main(void) {
 	struct BTNode *pH = createTree();
+	printf("二叉树前序遍历: ");
 	preTraverse(pH);
-
+	printf("\n");
+	printf("二叉树中序遍历: ");
+	inTraverse(pH);
+	printf("\n");
+	printf("二叉树后序遍历: ");
+	postTraverse (pH);
+	printf("\n");
 	return 0;
 }
+
+// 后序遍历
+void postTraverse(struct BTNode *p) {
+	if (NULL != p->pLeft) {
+		postTraverse(p->pLeft);
+	}
+	if (NULL != p->pRight) {
+		postTraverse(p->pRight);
+	}
+	if (NULL != p) {
+		printf("%c\t", p->data);
+	}
+}
+
+// 中序遍历
+void inTraverse(struct BTNode *p) {
+	if (NULL != p->pLeft) {
+		inTraverse(p->pLeft);
+	}
+	if (NULL != p) {
+		printf("%c\t", p->data);
+	}
+	if (NULL != p->pRight) {
+		inTraverse(p->pRight);
+	}
+}
+
+
 void preTraverse(struct BTNode *p) {
 	if (NULL != p) {
 		printf("%c\t", p->data);
