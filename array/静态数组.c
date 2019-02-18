@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 // 接收数组参数竟然用int *
+// 说明在c中数组名代表的是首地址
 void Show_Array(int *arr, int len)
 {
     arr[3] = 10;

@@ -2,6 +2,7 @@
 #include <malloc.h>
 #include <stdbool.h>
 
+// 	数组的关键信息 长度 内容 首地址 自动增长因子
 struct Arr {
     int len;  //数组的长度
     int cnt; //数组中内容的个数

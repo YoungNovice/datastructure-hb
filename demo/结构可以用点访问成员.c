@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
+// 结构体可以用.来访问成员
 struct Student {
     int sid;
     char name[200];
